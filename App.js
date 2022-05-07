@@ -8,10 +8,14 @@ import {
   TouchableOpacity,
 } from 'react-native';
 //hooks works in the same way as React so we import from the react instead of react-native
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 const App = () => {
   const [value, setValue] = useState(0);
+
+  const handleIncrementCallback = useCallback(() => {
+    setValue((currentValue) => currentValue + 1);
+  }, []); //empty array of dependecies i.e, on which this function re-renders
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -20,9 +24,7 @@ const App = () => {
         <Text>Let's make a counter</Text>
         <Text> {value} </Text>
 
-        <TouchableOpacity
-          onPress={() => setValue((currentValue) => currentValue + 1)}
-        >
+        <TouchableOpacity onPress={handleIncrementCallback}>
           <Text>Increment</Text>
         </TouchableOpacity>
 
