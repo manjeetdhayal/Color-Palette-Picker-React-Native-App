@@ -11,8 +11,19 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="ColorPalette" component={ColorPalette} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ title: 'My Home' }}
+        />
+        <Stack.Screen
+          name="ColorPalette"
+          component={ColorPalette}
+          //to pass the colorpalette name as title of the screen instead of the 'color palette' for all the screens
+          options={({ route }) => ({
+            title: route.params.paletteName,
+          })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
