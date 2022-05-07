@@ -1,20 +1,21 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-//passing as props
-// export const ColorBox = (props) => {
-//   return (
-//     <View style={props.style}>
-//       <Text> Hey I am color component!</Text>
-//     </View>
-//   );
-// };
-
 //destructuring props
-export const ColorBox = ({ style, name }) => {
+export const ColorBox = ({ style, colorName, hexCode }) => {
+  //css trick to switch btw black and white background color based on background color
+  const textColor = {
+    color:
+      parseInt(hexCode.replace('#', ''), 16) > 0xffffff / 1.1
+        ? 'black'
+        : 'white',
+  };
+
   return (
-    <View style={style}>
-      <Text> Hey I am {name} component!</Text>
+    <View style={[style, { backgroundColor: `${hexCode}` }]}>
+      <Text style={textColor}>
+        {colorName}: {hexCode}
+      </Text>
     </View>
   );
 };
