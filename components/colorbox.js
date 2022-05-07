@@ -12,7 +12,16 @@ export const ColorBox = ({ style, colorName, hexCode }) => {
   };
 
   return (
-    <View style={[style, { backgroundColor: `${hexCode}` }]}>
+    <View
+      style={[
+        style,
+        {
+          backgroundColor: `${hexCode}`,
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+      ]}
+    >
       <Text style={textColor}>
         {colorName}: {hexCode}
       </Text>
