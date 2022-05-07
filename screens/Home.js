@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, RefreshControl } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  RefreshControl,
+} from 'react-native';
 import PalettePreview from '../components/PalettePreview';
 import { useState, useCallback, useEffect } from 'react';
 //we make API call to fetch color
@@ -54,6 +61,15 @@ const Home = ({ navigation }) => {
         onRefresh={() => {
           handleRefresh();
         }}
+        ListHeaderComponent={() => (
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('MyModal');
+            }}
+          >
+            <Text>Add more colors</Text>
+          </TouchableOpacity>
+        )}
       />
     </View>
   );
