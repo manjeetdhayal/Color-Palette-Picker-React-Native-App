@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, StyleSheet, FlatList } from 'react-native';
+import PalettePreview from '../components/PalettePreview';
 
-const COLORS = [
+const Solarized = [
   { colorName: 'Base03', hexCode: '#002b36' },
   { colorName: 'Base02', hexCode: '#073642' },
   { colorName: 'Base01', hexCode: '#586e75' },
@@ -37,55 +37,36 @@ const FRONTEND_MASTERS = [
   { colorName: 'Orange', hexCode: '#e66225' },
 ];
 
+const COLORS = [
+  { paletteName: 'Solarized', colors: Solarized },
+  { paletteName: 'Rainbow', colors: RAINBOW },
+  { paletteName: 'Frontend Masters', colors: FRONTEND_MASTERS },
+];
+
 const Home = ({ navigation }) => {
   return (
     <View>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('ColorPalette', {
-            paletteName: 'Solarized',
-            colors: COLORS,
-          })
-        }
-      >
-        <Text style={styles.container}>Solarized</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('ColorPalette', {
-            paletteName: 'Rainbow',
-            colors: RAINBOW,
-          })
-        }
-      >
-        <Text style={styles.container}>Rainbow</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={
-          () =>
-            navigation.navigate('ColorPalette', {
-              paletteName: 'Frontend Masters',
-              colors: FRONTEND_MASTERS,
-            })
-          //here we have passed different colors as params to the navigation route
-        }
-      >
-        <Text style={styles.container}>Frontend_Masters</Text>
-      </TouchableOpacity>
+      <FlatList
+        data={COLORS}
+        style={styles.list}
+        renderItem={({ item }) => (
+          <PalettePreview
+            handlePress={() => {
+              navigation.navigate('ColorPalette', item);
+            }}
+            palette={item}
+          />
+        )}
+        keyExtractor={(paletteName) => paletteName.paletteName}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'pink',
-    alignSelf: 'flex-start',
+  list: {
     padding: 10,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 20,
-    marginHorizontal: 0,
+    marginVertical: 10,
   },
 });
 export default Home;
