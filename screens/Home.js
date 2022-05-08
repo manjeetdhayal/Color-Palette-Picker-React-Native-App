@@ -11,11 +11,16 @@ import PalettePreview from '../components/PalettePreview';
 import { useState, useCallback, useEffect } from 'react';
 //we make API call to fetch color
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, route }) => {
   const [colors, setColors] = useState([]);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
   //we make a async call to fetch the colors
+
+  //to access the callback from add color palette screen
+  const newColorPalette = route.params
+    ? route.params.newColorPalette
+    : undefined;
 
   const fetchColors = useCallback(async () => {
     // console.log('I am in fetch colors'); //working
@@ -38,6 +43,12 @@ const Home = ({ navigation }) => {
       setIsRefreshing(false);
     }, 500);
   }, []);
+
+  useEffect(() => {
+    if (newColorPalette) {
+      setColors((palettes) => [newColorPalette, ...colors]);
+    }
+  }, [newColorPalette]); // it must re-renders every time newColorPalette changes
 
   return (
     <View>

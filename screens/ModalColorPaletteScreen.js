@@ -11,7 +11,7 @@ import {
 
 const Separator = () => <View style={styles.separator} />;
 
-const ModalColorPaletteScreen = () => {
+const ModalColorPaletteScreen = ({ navigation }) => {
   const [paletteName, setPaletteName] = useState('');
   const [paletteColors, setPaletteColors] = useState({});
   const [isEnabled, setIsEnabled] = useState(false);
@@ -22,6 +22,13 @@ const ModalColorPaletteScreen = () => {
     if (!paletteName) {
       Alert.alert('Please enter a paletter name');
     }
+
+    // navigation.goBack(); //we go back to the previous screen in the stack but we want to pass props also so we use navigate
+    const newColorPalette = {
+      paletteName: paletteName,
+      colors: [],
+    };
+    navigation.navigate('Home', { newColorPalette });
   }, [paletteName]); //it must change everytime name value changes
 
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
