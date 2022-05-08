@@ -78,7 +78,7 @@ const Home = ({ navigation, route }) => {
               navigation.navigate('MyModal');
             }}
           >
-            <Text>Add more colors</Text>
+            <Text style={styles.buttonText}>Add more colors</Text>
           </TouchableOpacity>
         )}
       />
@@ -90,6 +90,12 @@ const styles = StyleSheet.create({
   list: {
     padding: 10,
     marginVertical: 10,
+  },
+  buttonText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'teal',
+    marginBottom: 10,
   },
 });
 export default Home;
